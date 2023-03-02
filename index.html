@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+</style>
+<body>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="js/three.js"></script>
+    <script>
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild( renderer.domElement);  // ?
+
+        // Küp oluşturma 
+
+        const geometry = new THREE.BoxGeometry();    // küpün iskeleti
+        const material = new THREE.MeshBasicMaterial ({color: 0x00ff00}); // rengi
+        const cube = new THREE.Mesh(geometry, material); // birleştirme işlemi
+        scene.add(cube); // saheneye ekleme işlemi
+        camera.position.z = 5;
+
+
+        const animate = function(){
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.00;
+            cube.rotation.y += 0.00;
+           
+            renderer.render( scene, camera);
+        };
+        animate();
+
+        document.addEventListener("keydown", onDocumentKeyDown)
+        function onDocumentKeyDown(event){
+            let keyCode = event.which;
+            if(keyCode == 38){  // ileri
+                cube.position.y += 0.1;
+                cube.rotation.x += 0.1;
+            } else if(keyCode == 40){ // geri
+                cube.position.y -= 0.1;
+                cube.rotation.x -= 0.1;
+            } else if(keyCode == 37){ // sol
+                cube.position.x -= 0.1;
+                cube.rotation.y -= 0.1;
+            } else if(keyCode == 39){ // sağ
+                cube.position.x += 0.1;
+                cube.rotation.y += 0.1;
+            } else if(keyCode == 32){ // başlangıç
+                cube.position.set(0, 0, 0);
+
+                renderer.render( scene, camera);   // sahne ve kamerada göster
+            }
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
